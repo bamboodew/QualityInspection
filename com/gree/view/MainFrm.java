@@ -26,8 +26,7 @@ import java.awt.Dimension;
 
 @SuppressWarnings("serial")
 public class MainFrm extends JFrame {
-
-	private JDesktopPane table;
+	private JMenu menu;
 
 	/**
 	 * Launch the application.
@@ -49,133 +48,88 @@ public class MainFrm extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrm() {
+		getContentPane().setBackground(Color.LIGHT_GRAY);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrm.class.getResource("/images/\u70E7\u676F.png")));
-		getContentPane().setBackground(Color.BLACK);
-		setBackground(Color.BLACK);
+		setBackground(Color.WHITE);
 		setTitle("IQC\u7CFB\u7EDF");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		JMenu menu_1 = new JMenu("\u7EF4\u62A4\u4F9B\u65B9");
+		menu_1.setPreferredSize(new Dimension(100, 22));
+		menu_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u4F9B\u5E94\u5546.png")));
+		menuBar.add(menu_1);
+		
+		JMenuItem menuItem_8 = new JMenuItem("\u6DFB\u52A0\u4F9B\u65B9");
+		menuItem_8.addActionListener(new ActionListener() {
 
-		JMenu mnNewMenu = new JMenu("\u6536\u8D27");
-		mnNewMenu.setPreferredSize(new Dimension(100, 22));
-		mnNewMenu.setIcon(new ImageIcon("G:\\Java\\workspace\\QuolityInspectoin\\src\\images\\\u6536\u8D27.png"));
-		menuBar.add(mnNewMenu);
-
-		JMenu menu = new JMenu("\u56FE\u4E66\u7C7B\u522B\u7BA1\u7406");
-		menu.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/bookTypeManager.png")));
-		mnNewMenu.add(menu);
-
-		JMenuItem menuItem = new JMenuItem(
-				"\u56FE\u4E66\u7C7B\u522B\u6DFB\u52A0");
-		menuItem.addActionListener(new ActionListener() {
 			/**
-			 * 响应【图书类别添加】的事件
+			 * 【添加供方】
 			 */
 			public void actionPerformed(ActionEvent e) {
-				BookTypeAddInterFrm bookTypeAddInterFrm=new BookTypeAddInterFrm();
-				bookTypeAddInterFrm.setVisible(true);
-				
-				setJIFLocationToCenter(bookTypeAddInterFrm);//窗口居中
-				
-				table.add(bookTypeAddInterFrm);
-				
 			}
 		});
-		menuItem.setIcon(new ImageIcon(MainFrm.class.getResource("/images/add.png")));
-		menu.add(menuItem);
-
-		JMenuItem menuItem_1 = new JMenuItem("\u56FE\u4E66\u7C7B\u522B\u7EF4\u62A4");
-		menuItem_1.addActionListener(new ActionListener() {
-			/**
-			 * 【图书类别维护】
-			 */
-			public void actionPerformed(ActionEvent e) {
-				BookTypeManageInterFrm bookTypeManageInterFrm=new BookTypeManageInterFrm();
-				bookTypeManageInterFrm.setVisible(true);
-				
-				setJIFLocationToCenter(bookTypeManageInterFrm);//窗口居中
-				
-				table.add(bookTypeManageInterFrm);
-			}
-		});
-		menuItem_1.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/edit.png")));
-		menu.add(menuItem_1);
-
-		JMenu menu_1 = new JMenu("\u56FE\u4E66\u7BA1\u7406");
-		menu_1.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/bookManager.png")));
-		mnNewMenu.add(menu_1);
-
-		JMenuItem menuItem_2 = new JMenuItem("\u56FE\u4E66\u6DFB\u52A0");
-		menuItem_2.addActionListener(new ActionListener() {
-			/**
-			 * 响应【图书添加】事件
-			 */
-			public void actionPerformed(ActionEvent e) {
-				BookAddInterFrm bookAddInterFrm=new BookAddInterFrm();
-				bookAddInterFrm.setVisible(true);
-				
-				setJIFLocationToCenter(bookAddInterFrm);//窗口居中
-				
-				table.add(bookAddInterFrm);
-			}
-		});
-		menuItem_2.setIcon(new ImageIcon(MainFrm.class
+		menuItem_8.setIcon(new ImageIcon(MainFrm.class
 				.getResource("/images/add.png")));
-		menu_1.add(menuItem_2);
+		menu_1.add(menuItem_8);
 
-		JMenuItem menuItem_3 = new JMenuItem("\u56FE\u4E66\u7EF4\u62A4");
-		menuItem_3.addActionListener(new ActionListener() {
+		JMenuItem menuItem_9 = new JMenuItem("\u4FEE\u6539\u4F9B\u65B9");
+
+		menuItem_9.addActionListener(new ActionListener() {
+			
 			/**
-			 * 【图书维护】动作
+			 * 【修改供方】
 			 */
 			public void actionPerformed(ActionEvent e) {
-				BookManageInterFrm bookManageInterFrm=new BookManageInterFrm();
-				bookManageInterFrm.setVisible(true);
-				
-				setJIFLocationToCenter(bookManageInterFrm);//窗口居中
-				
-				table.add(bookManageInterFrm);
 			}
 		});
-		menuItem_3.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/edit.png")));
-		menu_1.add(menuItem_3);
+		menuItem_9.setIcon(new ImageIcon(MainFrm.class.getResource("/images/modify.png")));
+		menu_1.add(menuItem_9);
 
-		JMenuItem menuItem_4 = new JMenuItem("\u5B89\u5168\u9000\u51FA");
+		JMenu mnNewMenu = new JMenu("  \u6536\u8D27");
+		mnNewMenu.setPreferredSize(new Dimension(100, 22));
+		mnNewMenu.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u5165\u5E93.png")));
+		menuBar.add(mnNewMenu);
 		
-		menuItem_4.addActionListener(new ActionListener() {
+		JMenuItem menuItem = new JMenuItem("\u6536\u8D27\u5165\u5E93");
+		menuItem.addActionListener(new ActionListener() {
 			
-			//安全退出系统
+			/**
+			 * 【收货入库】：跳出“增”的MaterialAddInterFrm界面
+			 */
 			public void actionPerformed(ActionEvent e) {
-				int result=JOptionPane.showConfirmDialog(null, "是否推出系统");
-				if (result==0) {
-					dispose();
-				}
-				//System.out.println(result);
-			}  //【F6】继续下一步，【F8】执行到下一个断点，没断点就执行完毕。
+				
+			}
 		});
+		menuItem.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u5165\u5E93.png")));
+		mnNewMenu.add(menuItem);
 		
-		menuItem_4.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/exit.png")));
-		mnNewMenu.add(menuItem_4);
+		JMenuItem menuItem_1 = new JMenuItem("\u5F85\u68C0\u67E5\u8BE2");
+		menuItem_1.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【待检查询】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/search.png")));
+		mnNewMenu.add(menuItem_1);
 
-		JMenu mnNewMenu_1 = new JMenu("\u5E93\u5B58\u67E5\u8BE2");
+		JMenu mnNewMenu_1 = new JMenu("  \u68C0\u9A8C");
 		mnNewMenu_1.setPreferredSize(new Dimension(100, 22));
-		mnNewMenu_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u5E93\u5B58.png")));
+		mnNewMenu_1.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u68C0\u9A8C.png")));
 		menuBar.add(mnNewMenu_1);
 
-		JMenuItem mntmjava = new JMenuItem("\u5173\u4E8EJava1234");
+		JMenuItem mntmjava = new JMenuItem("\u8BB0\u5F55\u6570\u636E");
 		
 		mntmjava.addActionListener(new ActionListener() {
 			
 			/**
-			 * 增加点击【关于java1234】动作的连接
+			 * 【记录数据】
 			 */
 			public void actionPerformed(ActionEvent arg0) {
 				Java1234InterFrm java1234InterFrm = new Java1234InterFrm();// 新建组建对象
@@ -191,30 +145,97 @@ public class MainFrm extends JFrame {
 				table.add(java1234InterFrm);//添加组建
 			}
 		});
-		mntmjava.setIcon(new ImageIcon(MainFrm.class
-				.getResource("/images/about.png")));
+		mntmjava.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u8BB0\u5F55\u6570\u636E.png")));
 		mnNewMenu_1.add(mntmjava);
 		
-		JMenu mnNewMenu_2 = new JMenu("\u8BB0\u5F55\u6570\u636E");
-		mnNewMenu_2.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u8BB0\u5F55\u6570\u636E.png")));
-		mnNewMenu_2.setPreferredSize(new Dimension(100, 22));
-		menuBar.add(mnNewMenu_2);
+		JMenuItem menuItem_6 = new JMenuItem("\u4FEE\u6539\u6570\u636E");
+		menuItem_6.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【修改数据】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_6.setIcon(new ImageIcon("G:\\Java\\workspace\\QualityInspectoin\\src\\images\\\u4FEE\u6539.png"));
+		mnNewMenu_1.add(menuItem_6);
 		
-		JMenu menu_2 = new JMenu("\u7ED3\u8BBA\u7EF4\u62A4");
-		menu_2.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u7EF4\u62A4\u7ED3\u8BBA.png")));
-		menu_2.setPreferredSize(new Dimension(100, 22));
-		menuBar.add(menu_2);
+		JMenuItem menuItem_5 = new JMenuItem("\u7EF4\u62A4\u7ED3\u8BBA");
+		menuItem_5.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【维护结论】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_5.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u7EF4\u62A4\u7ED3\u8BBA.png")));
+		mnNewMenu_1.add(menuItem_5);
 		
-		JMenu menu_3 = new JMenu("\u9000\u51FA");
+		JMenuItem menuItem_7 = new JMenuItem("\u68C0\u9A8C\u8BB0\u5F55");
+		menuItem_7.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【检验记录】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_7.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u68C0\u9A8C\u8BB0\u5F55.png")));
+		mnNewMenu_1.add(menuItem_7);
+		
+		menu = new JMenu("  \u5E93\u5B58");
+		menu.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u5E93\u5B58.png")));
+		menu.setPreferredSize(new Dimension(100, 22));
+		menuBar.add(menu);
+		
+		JMenuItem menuItem_2 = new JMenuItem("\u5E93\u5B58\u67E5\u8BE2");
+		menuItem_2.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【库存查询】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_2.setIcon(new ImageIcon(MainFrm.class.getResource("/images/search.png")));
+		menu.add(menuItem_2);
+		
+		JMenuItem menuItem_4 = new JMenuItem("\u53D1\u8D27\u4F7F\u7528");
+		menuItem_4.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【发货使用】
+			 */
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		menuItem_4.setIcon(new ImageIcon(MainFrm.class.getResource("/images/out.png")));
+		menu.add(menuItem_4);
+		
+		JMenu menu_3 = new JMenu("  \u9000\u51FA");
 		menu_3.setPreferredSize(new Dimension(100, 22));
 		menu_3.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u9000\u51FA.png")));
 		menuBar.add(menu_3);
+		
+		JMenuItem menuItem_3 = new JMenuItem("\u9000\u51FA\u7CFB\u7EDF");
+		menuItem_3.addActionListener(new ActionListener() {
+			
+			/**
+			 * 【退出】
+			 */
+			public void actionPerformed(ActionEvent e) {
+				int result=JOptionPane.showConfirmDialog(null, "是否退出系统");
+				if (result==0) {
+					dispose();
+				}
+				//System.out.println(result);
+			}  //【F6】继续下一步，【F8】执行到下一个断点，没断点就执行完毕。
+		});
+		menuItem_3.setIcon(new ImageIcon(MainFrm.class.getResource("/images/\u9000\u51FA.png")));
+		menu_3.add(menuItem_3);
 
 		BufferedImage img;
-		table = new JDesktopPane();
-		table.setBackground(SystemColor.inactiveCaption);
-		
-		getContentPane().add(table, BorderLayout.CENTER);
 		
 		// table.setLayout(new BorderLayout(0, 0)); table弹出来最大化。此处取消。
 

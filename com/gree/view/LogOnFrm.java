@@ -29,6 +29,7 @@ import com.gree.utility.StringUtility;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
 public class LogOnFrm extends JFrame {
@@ -182,10 +183,14 @@ public class LogOnFrm extends JFrame {
 							.addGap(44)
 							.addComponent(button_1, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
-							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+									.addGap(18))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+									.addGap(18)))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(passwordTxt)
 								.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))))
@@ -208,7 +213,7 @@ public class LogOnFrm extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button)
 						.addComponent(button_1))
-					.addContainerGap(43, Short.MAX_VALUE))
+					.addContainerGap(59, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 
@@ -245,8 +250,8 @@ public class LogOnFrm extends JFrame {
 			User currentUser = userDAO.login(con, user);
 			if (currentUser != null) {
 				dispose();// 销毁当前窗体
-//				new MainFrm().setVisible(true);
-				 JOptionPane.showMessageDialog(null, "登录成功！");
+				new MainFrm().setVisible(true);
+//				 JOptionPane.showMessageDialog(null, "登录成功！");
 			} else {
 				JOptionPane.showMessageDialog(null, "用户名或密码错误！");
 			}
@@ -287,8 +292,8 @@ public class LogOnFrm extends JFrame {
 			User currentUser = userDAO.login(con, user);
 			if (currentUser != null) {
 				dispose();// 销毁当前窗体
-//				new MainFrm().setVisible(true);
-				 JOptionPane.showMessageDialog(null, "登录成功！");
+				new MainFrm().setVisible(true);
+//				 JOptionPane.showMessageDialog(null, "登录成功！");
 			} else {
 				JOptionPane.showMessageDialog(null, "用户名或密码错误！");
 			}

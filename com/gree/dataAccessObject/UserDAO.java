@@ -16,7 +16,7 @@ public class UserDAO {
 	 */
 	public User login(Connection con, User user) throws Exception {
 		User resultUser = null;
-		String sql = "select * from user where userName=? and password=?";
+		String sql = "select * from t_user where userName=? and password=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		
 		pstmt.setString(1, user.getUserName()); //登陆界面传过来的输入的数据
