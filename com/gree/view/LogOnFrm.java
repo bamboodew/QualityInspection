@@ -74,7 +74,7 @@ public class LogOnFrm extends JFrame {
 			}
 		}
 		setResizable(false);
-		setTitle("\u68C0\u9A8C\u5458\u767B\u9646");
+		setTitle("\u767B\u9646");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 334);
 		contentPane = new JPanel();
@@ -88,14 +88,17 @@ public class LogOnFrm extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(LogOnFrm.class.getResource("/images/caliper\uFF08\u6E38\u6807\u5361\u5C3A\uFF09.png")));
 
 		JLabel lblNewLabel_1 = new JLabel("\u7528\u6237\u540D");
+		lblNewLabel_1.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		lblNewLabel_1.setIcon(new ImageIcon(LogOnFrm.class
 				.getResource("/images/userName.png")));
 
-		JLabel lblNewLabel_2 = new JLabel("\u5BC6  \u7801");
+		JLabel lblNewLabel_2 = new JLabel("\u5BC6    \u7801");
+		lblNewLabel_2.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		lblNewLabel_2.setIcon(new ImageIcon(LogOnFrm.class
 				.getResource("/images/password.png")));
 
 		userNameTxt = new JTextField();
+		userNameTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		userNameTxt.addKeyListener(new KeyAdapter() {
 			// 用户名填写完成之后就执行【回车】登录动作或者【ESC】的退出动作
 			public void keyPressed(KeyEvent e) {
@@ -111,6 +114,7 @@ public class LogOnFrm extends JFrame {
 		userNameTxt.setColumns(10);
 
 		passwordTxt = new JPasswordField();
+		passwordTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 
 		passwordTxt.addKeyListener(new KeyAdapter() {
 			@Override
@@ -126,6 +130,7 @@ public class LogOnFrm extends JFrame {
 		});
 
 		JButton button = new JButton("\u767B\u5F55");
+		button.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		button.addKeyListener(new KeyAdapter() {
 			@Override
 			// tab至【登录】之后【回车】动作
@@ -148,6 +153,7 @@ public class LogOnFrm extends JFrame {
 		});
 
 		JButton button_1 = new JButton("\u91CD\u7F6E");
+		button_1.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		button_1.addKeyListener(new KeyAdapter() {
 			@Override
 			// tab至【重置】之后【回车】执行重置动作
@@ -186,11 +192,9 @@ public class LogOnFrm extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
-									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-									.addGap(18))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-									.addGap(18)))
+									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(passwordTxt)
 								.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))))

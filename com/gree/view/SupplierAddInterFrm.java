@@ -4,47 +4,37 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.ResultSet;
 
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.text.DefaultCaret;
 
-import com.java1234.dataAccessObject.BookDAO;
-import com.java1234.dataAccessObject.BookTypeDAO;
-import com.java1234.model.Book;
-import com.java1234.model.BookType;
-import com.java1234.utility.ConnectToBook;
-import com.java1234.utility.StringUtility;
+import java.awt.Font;
+
+import com.gree.dataAccessObject.SupplierDAO;
+import com.gree.model.Supplier;
+import com.gree.utility.ConnectToIqc;
+import com.gree.utility.StringUtility;
+
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class SupplierAddInterFrm extends JInternalFrame {
-	private JTextField bookNameTxt;
-	private JTextField authorTxt;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField priceTxt;
-	@SuppressWarnings("rawtypes")
-	private JComboBox bookTypeJcb;
-	private JRadioButton manJrb;
-	private JRadioButton femaleJrb;
+	private JTextField supplierCodeTxt;
+	private JTextField supplierNameTxt;
+	private JTextField supplierManagerTxt;
+	private JTextField supplierTelTxt;
+	private JTextField supplierCityTxt;
+	
+	private ConnectToIqc cti = new ConnectToIqc();
+	private SupplierDAO supplierDAO = new SupplierDAO();
 
-	private ConnectToBook ctb= new ConnectToBook();
-	private BookTypeDAO bookTypeDAO = new BookTypeDAO();
-	private BookDAO bookDAO = new BookDAO();
-
-	private JTextArea bookDescTxt;
 	/**
 	 * Launch the application.
 	 */
@@ -64,60 +54,44 @@ public class SupplierAddInterFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("rawtypes")
 	public SupplierAddInterFrm() {
-		setClosable(true);
 		setIconifiable(true);
-		setTitle("\u56FE\u4E66\u6DFB\u52A0");
-		setBounds(100, 100, 568, 429);
-		
-		JLabel label = new JLabel("\u56FE\u4E66\u540D\u79F0\uFF1A");
-		
-		bookNameTxt = new JTextField();
-		bookNameTxt.setColumns(10);
-		
-		JLabel label_1 = new JLabel("\u56FE\u4E66\u4F5C\u8005\uFF1A");
-		
-		authorTxt = new JTextField();
-		authorTxt.setColumns(10);
-		
-		JLabel label_2 = new JLabel("\u4F5C\u8005\u6027\u522B\uFF1A");
-		
-		manJrb = new JRadioButton("\u7537");
-		buttonGroup.add(manJrb);
-		manJrb.setSelected(true);
-		
-		femaleJrb = new JRadioButton("\u5973");
-		buttonGroup.add(femaleJrb);
-		
-		JLabel label_3 = new JLabel("\u56FE\u4E66\u4EF7\u683C\uFF1A");
-		
-		priceTxt = new JTextField();
-		priceTxt.setColumns(10);
-		
-		JLabel label_4 = new JLabel("\u56FE\u4E66\u7C7B\u522B\uFF1A");
-		
-		JLabel label_5 = new JLabel("\u56FE\u4E66\u63CF\u8FF0\uFF1A");
-		
-		/**
-		 * 创建JScrollPane来放文本框JTextArea，确保文本框可以有滚动条。
-		 */
-		JScrollPane scrollPane = new JScrollPane();
-		
-		bookTypeJcb = new JComboBox();
-		
+		setFrameIcon(new ImageIcon(
+				SupplierAddInterFrm.class
+						.getResource("/images/\u4F9B\u5E94\u5546.png")));
+		setClosable(true);
+		setTitle("\u4F9B\u65B9\u7EF4\u62A4");
+		setBounds(100, 100, 500, 250);
+
+		JLabel label = new JLabel("\u4EE3\u7801\uFF1A");
+		label.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+
+		supplierCodeTxt = new JTextField();
+		supplierCodeTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		supplierCodeTxt.setColumns(10);
+
+		JLabel label_1 = new JLabel("\u540D\u79F0\uFF1A");
+		label_1.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+
+		supplierNameTxt = new JTextField();
+		supplierNameTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		supplierNameTxt.setColumns(10);
+
 		JButton button = new JButton("\u6DFB\u52A0");
+		button.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		button.addActionListener(new ActionListener() {
 			/**
 			 * 【添加】按钮动作事件
 			 */
 			public void actionPerformed(ActionEvent e) {
-				bookAddActionPerformed(e);
+				supplierAddActionPerformed(e);
 			}
 		});
-		button.setIcon(new ImageIcon(SupplierAddInterFrm.class.getResource("/images/add.png")));
-		
+		button.setIcon(new ImageIcon(SupplierAddInterFrm.class
+				.getResource("/images/add.png")));
+
 		JButton button_1 = new JButton("\u91CD\u7F6E");
+		button_1.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		button_1.addActionListener(new ActionListener() {
 			/**
 			 * 重置动作事件
@@ -126,158 +100,153 @@ public class SupplierAddInterFrm extends JInternalFrame {
 				resetValueActionPerformed(e);
 			}
 		});
-		button_1.setIcon(new ImageIcon(SupplierAddInterFrm.class.getResource("/images/reset.png")));
+		button_1.setIcon(new ImageIcon(SupplierAddInterFrm.class
+				.getResource("/images/reset.png")));
+
+		JLabel label_2 = new JLabel("\u4E1A\u52A1\u7ECF\u7406\uFF1A");
+		label_2.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+
+		supplierManagerTxt = new JTextField();
+		supplierManagerTxt.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		supplierManagerTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		supplierManagerTxt.setColumns(10);
+
+		JLabel label_3 = new JLabel("\u7535\u8BDD\uFF1A");
+		label_3.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+
+		supplierTelTxt = new JTextField();
+		supplierTelTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		supplierTelTxt.setColumns(10);
+
+		JLabel label_5 = new JLabel("\u5730\u5740\uFF1A");
+		label_5.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+
+		supplierCityTxt = new JTextField();
+		supplierCityTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		supplierCityTxt.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(67)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(47)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(28)
+								.addComponent(label)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(supplierCodeTxt, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(label_5)
+									.addComponent(label_2))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(supplierManagerTxt, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(supplierTelTxt))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(label_1)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(supplierNameTxt, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))))
+									.addComponent(supplierCityTxt, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label_4)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(bookTypeJcb, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(bookNameTxt, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label_2)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(manJrb)
-									.addGap(18)
-									.addComponent(femaleJrb)))
-							.addGap(29)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label_1)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(authorTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label_3)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label_5)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane)))
-					.addContainerGap(67, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(182)
-					.addComponent(button)
-					.addGap(34)
-					.addComponent(button_1)
-					.addContainerGap(182, Short.MAX_VALUE))
+							.addComponent(button)
+							.addGap(50)
+							.addComponent(button_1)
+							.addGap(80)))
+					.addContainerGap(47, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(34)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label)
-						.addComponent(bookNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(label_1)
-						.addComponent(authorTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_2)
-						.addComponent(manJrb)
-						.addComponent(femaleJrb)
-						.addComponent(label_3)
-						.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(26)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_4)
-						.addComponent(bookTypeJcb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(27)
+					.addGap(25)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(supplierCodeTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_2)
+								.addComponent(supplierManagerTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_1)
+								.addComponent(supplierNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_3)
+								.addComponent(supplierTelTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addGap(12)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label_5)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(supplierCityTxt, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button)
 						.addComponent(button_1))
-					.addContainerGap(43, Short.MAX_VALUE))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
-		
-		bookDescTxt = new JTextArea();
-		
-		bookDescTxt.setLineWrap(true);//文本框的内容自动换行
-		
-		//如果光标位置超出目前可视范围，会自动滚动以保正光标可以显示出来。
-		DefaultCaret caret = (DefaultCaret) bookDescTxt.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		
-		scrollPane.setViewportView(bookDescTxt);
+
 		getContentPane().setLayout(groupLayout);
-		
-		fillBookType();//下拉框初始化
+
+//		fillBookType();// 下拉框初始化
 
 	}
-	
+
 	/**
 	 * 【重置】事件处理
+	 * 
 	 * @param e
 	 */
 	private void resetValueActionPerformed(ActionEvent e) {
 		this.resetValue();
-		
 	}
 
 	/**
-	 * 【图书添加】事件处理
+	 * 【供方添加】事件处理
+	 * 
 	 * @param e
 	 */
-	private void bookAddActionPerformed(ActionEvent evt) {
-		String bookName = this.bookNameTxt.getText();
-		String author = this.authorTxt.getText();
-		String price = this.priceTxt.getText();
-		String bookDesc = this.bookDescTxt.getText();
-		
-		if(StringUtility.isEmpty(bookName)){
-			JOptionPane.showMessageDialog(null, "图书名称不能为空！");//跳出窗口提示
+	private void supplierAddActionPerformed(ActionEvent evt) {
+		String supplierCode = this.supplierCodeTxt.getText();
+		String supplierName = this.supplierNameTxt.getText();
+		String supplierManager = this.supplierManagerTxt.getText();
+		String supplierTel = this.supplierTelTxt.getText();
+		String supplierCity = this.supplierCityTxt.getText();
+
+		if (StringUtility.isEmpty(supplierCode)) {
+			JOptionPane.showMessageDialog(null, "供方代码不能为空！");// 跳出窗口提示
 			return;
 		}
-		if(StringUtility.isEmpty(author)){
-			JOptionPane.showMessageDialog(null, "图书作者不能为空！");//跳出窗口提示
+		if (StringUtility.isEmpty(supplierName)) {
+			JOptionPane.showMessageDialog(null, "供方名称不能为空！");// 跳出窗口提示
 			return;
 		}
-		if(StringUtility.isEmpty(price)){
-			JOptionPane.showMessageDialog(null, "图书价格不能为空！");//跳出窗口提示
-			return;
-		}
-		
-		//性别选择，赋值。
-		String sex = "";
-		if(manJrb.isSelected()){
-			sex="男";
-		}else if(femaleJrb.isSelected()){
-			sex="女";
-		}
-		
-		BookType bookType = (BookType) bookTypeJcb.getSelectedItem();//选中下拉框的其中一项
-		int bookTypeId = bookType.getId();
-		
-		Book book = new Book(bookName, author, sex, Float.parseFloat(price), bookTypeId, bookDesc);
-		
-		Connection con=null;
+
+		Supplier supplier = new Supplier(supplierCode, supplierName, supplierManager, supplierTel, supplierCity);
+		Connection con = null;
 		try {
-			con = ctb.getCon();
-			int addNum = bookDAO.add(con, book);
-			if(addNum==1){
-				JOptionPane.showMessageDialog(null, "图书添加成功！");
-				resetValue();//添加成功之后，将文本框清空。
-			}else{
-				JOptionPane.showMessageDialog(null, "图书添加失败！");
+			con = cti.getCon();
+			int addNum = supplierDAO.add(con, supplier);
+			if (addNum == 1) {
+				JOptionPane.showMessageDialog(null, "供方添加成功！");
+				resetValue();// 添加成功之后，将文本框清空。
+			} else {
+				JOptionPane.showMessageDialog(null, "供方添加失败！");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "图书添加失败！");
-		}finally{
+			JOptionPane.showMessageDialog(null, "供方添加失败！");
+		} finally {
 			try {
-				ctb.closeCon(con);
+				cti.closeCon(con);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -288,25 +257,22 @@ public class SupplierAddInterFrm extends JInternalFrame {
 	 * 重置表单：清空文本框
 	 */
 	private void resetValue() {
-		this.bookNameTxt.setText("");
-		this.authorTxt.setText("");
-		this.priceTxt.setText("");
-		this.manJrb.setSelected(true);
-		this.bookDescTxt.setText("");
-		if(this.bookTypeJcb.getItemCount()>0){
-			this.bookTypeJcb.setSelectedIndex(0);
-		}
+		this.supplierCodeTxt.setText("");
+		this.supplierNameTxt.setText("");
+		this.supplierManagerTxt.setText("");
+		this.supplierTelTxt.setText("");
+		this.supplierCityTxt.setText("");
 	}
 
 	/**
 	 * 初始化图书类别下拉框
 	 */
-	@SuppressWarnings("unchecked")
-	private void fillBookType() {
+//	@SuppressWarnings("unchecked")
+/*	private void fillBookType() {
 		Connection con = null;
 		BookType bookType = null;
 		try {
-			con = ctb.getCon();
+			con = cti.getCon();
 			ResultSet rs = bookTypeDAO.list(con, new BookType());
 			while (rs.next()) {
 				bookType = new BookType();
@@ -317,5 +283,5 @@ public class SupplierAddInterFrm extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
