@@ -2,6 +2,7 @@ package com.gree.dataAccessObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.gree.model.Supplier;
 
@@ -29,6 +30,23 @@ public class SupplierDAO {
 		pstmt.setString(4, supplier.getSupplierTel());
 		pstmt.setString(5, supplier.getSupplierCity());
 		return pstmt.executeUpdate();
+	}
+	
+	/**
+	 * 判断输入的信息是否已经存在
+	 * @param con
+	 * @param supplier
+	 * @param s
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public boolean isExsiting(Connection con, String s) throws Exception {
+		String sql = "select 1 from t_supplier where suppliercode=? limit 1";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, s);
+		ResultSet rs = pstmt.executeQuery();
+		return rs.next();
 	}
 	
 	/**

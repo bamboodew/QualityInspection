@@ -24,6 +24,12 @@ import com.gree.utility.StringUtility;
 
 import java.awt.Component;
 
+import javax.swing.border.EmptyBorder;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseAdapter;
+
 @SuppressWarnings("serial")
 public class SupplierAddInterFrm extends JInternalFrame {
 	private JTextField supplierCodeTxt;
@@ -34,6 +40,10 @@ public class SupplierAddInterFrm extends JInternalFrame {
 	
 	private ConnectToIqc cti = new ConnectToIqc();
 	private SupplierDAO supplierDAO = new SupplierDAO();
+	private JLabel label;
+	private final JLabel label_4 = new JLabel("New label");
+	private JTextField exsitingTxt;
+	
 
 	/**
 	 * Launch the application.
@@ -63,10 +73,33 @@ public class SupplierAddInterFrm extends JInternalFrame {
 		setTitle("\u4F9B\u65B9\u7EF4\u62A4");
 		setBounds(100, 100, 500, 250);
 
-		JLabel label = new JLabel("\u4EE3\u7801\uFF1A");
+		label = new JLabel("\u4EE3\u7801\uFF1A");
 		label.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 
 		supplierCodeTxt = new JTextField();
+
+//		supplierCodeTxt.addMouseMotionListener(new MouseMotionAdapter() {
+//			/**
+//			 * 鼠标点击供方代码输入框的响应：自动显示是否已存在！
+//			 */
+//			@Override
+//			public void mouseMoved(MouseEvent e) {
+//				supplierCodeTxtMousePressed(e);
+//			}
+//		});
+		supplierCodeTxt.addMouseListener(new MouseAdapter() {
+			/**
+			 * 鼠标点击供方代码输入框的响应：自动显示是否已存在！
+			 */
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				supplierCodeTxtMousePressed(e);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				supplierCodeTxtMousePressed(e);
+			}
+		});
 		supplierCodeTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		supplierCodeTxt.setColumns(10);
 
@@ -124,53 +157,78 @@ public class SupplierAddInterFrm extends JInternalFrame {
 		supplierCityTxt = new JTextField();
 		supplierCityTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		supplierCityTxt.setColumns(10);
+		
+		/**
+		 * 是否已存在的判断结果显示
+		 */
+		exsitingTxt = new JTextField();
+		exsitingTxt.setFont(new Font("微软雅黑", Font.BOLD | Font.ITALIC, 12));
+		exsitingTxt.setBorder(new EmptyBorder(0, 0, 0, 0));
+		exsitingTxt.setEditable(false);
+		exsitingTxt.setColumns(10);
+		
+		
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(47)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGap(28)
-								.addComponent(label)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(supplierCodeTxt, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(label_5)
-									.addComponent(label_2))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(supplierManagerTxt, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(supplierTelTxt))
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(label_1)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(supplierNameTxt, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))))
-									.addComponent(supplierCityTxt, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(button)
-							.addGap(50)
-							.addComponent(button_1)
-							.addGap(80)))
+							.addGap(47)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(28)
+										.addComponent(label)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(supplierCodeTxt, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(label_5)
+											.addComponent(label_2))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(supplierManagerTxt, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+														.addGap(62))
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(exsitingTxt, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+														.addGap(4)))
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(supplierTelTxt))
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(label_1)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(supplierNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+											.addComponent(supplierCityTxt, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(button)
+									.addGap(50)
+									.addComponent(button_1)
+									.addGap(80))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(47, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
+					.addContainerGap()
+					.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(supplierCodeTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label))
+								.addComponent(label)
+								.addComponent(exsitingTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label_2)
@@ -191,13 +249,35 @@ public class SupplierAddInterFrm extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button)
 						.addComponent(button_1))
-					.addContainerGap(32, Short.MAX_VALUE))
+					.addContainerGap(38, Short.MAX_VALUE))
 		);
 
 		getContentPane().setLayout(groupLayout);
 
 //		fillBookType();// 下拉框初始化
 
+	}
+
+	/**
+	 * 鼠标点击供方代码输入框的响应：自动显示【是否已存在】！
+	 * @param e
+	 */
+	protected void supplierCodeTxtMousePressed(MouseEvent e) {
+		Connection con = null;
+		try {
+			con = cti.getCon();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			if(supplierDAO.isExsiting(con, supplierCodeTxt.getText())==true){
+				this.exsitingTxt.setText("已存在");
+			}else{
+				this.exsitingTxt.setText("");
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -234,12 +314,16 @@ public class SupplierAddInterFrm extends JInternalFrame {
 		Connection con = null;
 		try {
 			con = cti.getCon();
-			int addNum = supplierDAO.add(con, supplier);
-			if (addNum == 1) {
-				JOptionPane.showMessageDialog(null, "供方添加成功！");
-				resetValue();// 添加成功之后，将文本框清空。
-			} else {
-				JOptionPane.showMessageDialog(null, "供方添加失败！");
+			if(supplierDAO.isExsiting(con, supplierCodeTxt.getText())==true){
+				JOptionPane.showMessageDialog(null, "供方已存在！");
+			}else{
+				int addNum = supplierDAO.add(con, supplier);
+				if (addNum == 1) {
+					JOptionPane.showMessageDialog(null, "供方添加成功！");
+					resetValue();// 添加成功之后，将文本框清空。
+				} else {
+					JOptionPane.showMessageDialog(null, "供方添加失败！");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

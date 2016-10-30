@@ -187,7 +187,7 @@ public class LogOnFrm extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(button)
 							.addGap(44)
-							.addComponent(button_1, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+							.addComponent(button_1, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -217,7 +217,7 @@ public class LogOnFrm extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button)
 						.addComponent(button_1))
-					.addContainerGap(59, Short.MAX_VALUE))
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 
@@ -325,5 +325,4 @@ public class LogOnFrm extends JFrame {
 		this.passwordTxt.setText("");
 
 	}
-
 }
