@@ -41,7 +41,7 @@ public class SupplierDAO {
 	 * @throws Exception
 	 */
 	
-	public boolean isExsiting(Connection con, String s) throws Exception {
+	public boolean isCodeExsiting(Connection con, String s) throws Exception {
 		String sql = "select 1 from t_supplier where suppliercode=? limit 1";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, s);
@@ -49,6 +49,22 @@ public class SupplierDAO {
 		return rs.next();
 	}
 	
+	public boolean isNameExsiting(Connection con, String s) throws Exception {
+		String sql = "select 1 from t_supplier where suppliername=? limit 1";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, s);
+		ResultSet rs = pstmt.executeQuery();
+		return rs.next();
+	}
+	
+//	public boolean isExsiting(Connection con, String column,String value) throws Exception {
+//		String sql = "select 1 from t_supplier where ?=? limit 1";
+//		PreparedStatement pstmt = con.prepareStatement(sql);
+//		pstmt.setString(1,column);
+//		pstmt.setString(2, value);
+//		ResultSet rs = pstmt.executeQuery();
+//		return rs.next();
+//	}
 	/**
 	 * 图书信息查询
 	 * @param con

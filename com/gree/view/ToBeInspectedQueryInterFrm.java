@@ -20,7 +20,6 @@ import java.awt.Panel;
 import javax.swing.JTable;
 
 public class ToBeInspectedQueryInterFrm extends JInternalFrame {
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -44,15 +43,21 @@ public class ToBeInspectedQueryInterFrm extends JInternalFrame {
 	public ToBeInspectedQueryInterFrm() {
 		setBounds(100, 100, 450, 300);
 		
-		table = new JTable();
+		JLabel lblNewLabel = new JLabel("New label");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(table, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(92)
+					.addComponent(lblNewLabel)
+					.addContainerGap(293, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(table, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(133, Short.MAX_VALUE)
+					.addComponent(lblNewLabel)
+					.addGap(114))
 		);
 		getContentPane().setLayout(groupLayout);
 

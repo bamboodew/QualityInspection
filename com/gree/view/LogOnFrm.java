@@ -99,8 +99,9 @@ public class LogOnFrm extends JFrame {
 
 		userNameTxt = new JTextField();
 		userNameTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+					
+		// 用户名填写完成之后就执行【回车】登录动作或者【ESC】的退出动作
 		userNameTxt.addKeyListener(new KeyAdapter() {
-			// 用户名填写完成之后就执行【回车】登录动作或者【ESC】的退出动作
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 					loginActionPerformed(e);
@@ -116,9 +117,9 @@ public class LogOnFrm extends JFrame {
 		passwordTxt = new JPasswordField();
 		passwordTxt.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 
+		// 密码填写完成之后就执行【回车】的登录动作
 		passwordTxt.addKeyListener(new KeyAdapter() {
 			@Override
-			// 密码填写完成之后就执行【回车】的登录动作
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 					loginActionPerformed(e);
@@ -143,9 +144,9 @@ public class LogOnFrm extends JFrame {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(LogOnFrm.class
-				.getResource("/images/login.png")));
+		button.setIcon(new ImageIcon(LogOnFrm.class.getResource("/images/login.png")));
 		button.addActionListener(new ActionListener() {
+			
 			// 【登录】动作
 			public void actionPerformed(ActionEvent e) {
 				loginActionPerformed(e);
@@ -172,6 +173,7 @@ public class LogOnFrm extends JFrame {
 				resetValueActionPerformed(e);
 			}
 		});
+		
 		button_1.setIcon(new ImageIcon(LogOnFrm.class
 				.getResource("/images/reset.png")));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -223,15 +225,20 @@ public class LogOnFrm extends JFrame {
 
 		// 设置JFrame居中显示
 		this.setLocationRelativeTo(null);
+		
 	}
 
+	/**
+	 * 【重置】回车
+	 * @param evt
+	 */
 	protected void resetValueActionPerformed(KeyEvent evt) {
 		this.userNameTxt.setText("");
 		this.passwordTxt.setText("");
 	}
 
 	/**
-	 * 【回车】登录
+	 * 【登录】回车
 	 * 
 	 * @param evt
 	 */
@@ -260,13 +267,11 @@ public class LogOnFrm extends JFrame {
 				JOptionPane.showMessageDialog(null, "用户名或密码错误！");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				cti.closeCon(con);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -274,7 +279,7 @@ public class LogOnFrm extends JFrame {
 	}
 
 	/**
-	 * 登录事件处理
+	 * 【登录】单击
 	 * 
 	 * @param e
 	 */
@@ -302,25 +307,22 @@ public class LogOnFrm extends JFrame {
 				JOptionPane.showMessageDialog(null, "用户名或密码错误！");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				cti.closeCon(con);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
 	/**
-	 * 重置事件处理
+	 * 【重置】单击
 	 * 
 	 * @param evt
 	 */
 	protected void resetValueActionPerformed(ActionEvent evt) {
-
 		this.userNameTxt.setText("");
 		this.passwordTxt.setText("");
 
