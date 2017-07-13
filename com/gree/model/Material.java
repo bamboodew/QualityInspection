@@ -14,31 +14,31 @@ public class Material {
 	private Integer bookTypeId;//图书的类别Id
 	private String bookTypeName;//图书的类别名称
 	private String bookDesc;//图书的备注
-	
-	
-	public Material(String bookName, String author, Integer bookTypeId) {
+
+
+	public Material(String materName, String author, Integer bookTypeId) {
 		super();
-		this.bookName = bookName;
+		this.materName = materName;
 		this.author = author;
 		this.bookTypeId = bookTypeId;
 	}
-	
+
 	public Material(String bookName, String author, String sex, Float price,
 			Integer bookTypeId, String bookDesc) {
 		super();
-		this.bookName = bookName;
+		this.materName = bookName;
 		this.author = author;
 		this.sex = sex;
 		this.price = price;
 		this.bookTypeId = bookTypeId;
 		this.bookDesc = bookDesc;
 	}
-	
+
 	public Material(int id, String bookName, String author, String sex,
 			Float price, Integer bookTypeId, String bookDesc) {
 		super();
 		this.id = id;
-		this.bookName = bookName;
+		this.materName = bookName;
 		this.author = author;
 		this.sex = sex;
 		this.price = price;
@@ -56,10 +56,10 @@ public class Material {
 		this.id = id;
 	}
 	public String getBookName() {
-		return bookName;
+		return materName;
 	}
 	public void setBookName(String bookName) {
-		this.bookName = bookName;
+		this.materName = bookName;
 	}
 	public String getAuthor() {
 		return author;
@@ -97,5 +97,5 @@ public class Material {
 	public void setBookDesc(String bookDesc) {
 		this.bookDesc = bookDesc;
 	}
-	
+
 }

@@ -335,6 +335,7 @@ public class Inspec extends JFrame {
 		scrollPane.setBounds(5, 154, 1084, 193);
 		contentPane.add(scrollPane);
 
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {

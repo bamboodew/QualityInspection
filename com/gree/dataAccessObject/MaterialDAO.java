@@ -5,8 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.gree.model.Material;
-import com.java1234.model.Book;
-import com.java1234.utility.StringUtility;
+import com.gree.utility.StringUtility;
 
 /**
  * 图书DAO类
@@ -14,7 +13,7 @@ import com.java1234.utility.StringUtility;
  *
  */
 public class MaterialDAO {
-	
+
 	/**
 	 * 图书信息添加
 	 * @param con
@@ -25,21 +24,21 @@ public class MaterialDAO {
 	public int add(Connection con,Material mater) throws Exception{
 		String sql = "insert into t_mater values(null,?,?,?,?,?,?)";
 		PreparedStatement pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, book.getBookName());
-		pstmt.setString(2, book.getAuthor());
-		pstmt.setString(3, book.getSex());
-		pstmt.setFloat(4, book.getPrice());
-		pstmt.setInt(5, book.getBookTypeId());
-		pstmt.setString(6, book.getBookDesc());
+		pstmt.setString(1, mater.getBookName());
+		pstmt.setString(2, mater.getAuthor());
+		pstmt.setString(3, mater.getSex());
+		pstmt.setFloat(4, mater.getPrice());
+		pstmt.setInt(5, mater.getBookTypeId());
+		pstmt.setString(6, mater.getBookDesc());
 		return pstmt.executeUpdate();
 	}
-	
+
 	/**
 	 * 图书信息查询
 	 * @param con
 	 * @param book
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public ResultSet list(Connection con,Material book) throws Exception{
 		StringBuffer sb = new StringBuffer("select * from t_book b,t_bookType bt where b.bookTypeId=bt.id");
@@ -55,7 +54,7 @@ public class MaterialDAO {
 		PreparedStatement pstmt = con.prepareStatement(sb.toString());
 		return pstmt.executeQuery();
 	}
-	
+
 	/**
 	 * 图书信息删除
 	 * @param con
@@ -69,13 +68,13 @@ public class MaterialDAO {
 		pstmt.setString(1, id);
 		return pstmt.executeUpdate();
 	}
-	
+
 	/**
 	 * 图书信息修改
 	 * @param con
 	 * @param book
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public int update(Connection con,Material book) throws Exception{
 		String sql = "update t_book set bookName=?,author=?,sex=?,price=?,bookDesc=?,bookTypeId=? where id=?";
@@ -90,13 +89,13 @@ public class MaterialDAO {
 		return pstmt.executeUpdate();
 
 	}
-	
+
 	/**
 	 * 指定图书类别下是否存在图书？
 	 * @param con
 	 * @param bookTypeId
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean existBookByBookTypeId(Connection con,String bookTypeId) throws Exception{
 		String sql = "select * from t_book where bookTypeId=?";
@@ -105,5 +104,5 @@ public class MaterialDAO {
 		ResultSet rs=pstmt.executeQuery();
 		return rs.next();
 	}
-	
+
 }
